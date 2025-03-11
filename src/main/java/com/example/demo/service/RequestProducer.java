@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+
+import com.example.demo.model.Request;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,15 +20,17 @@ public class RequestProducer {
         this.scheduler = scheduler;
     }
 
-    public Mono<String> createRequest(String resourceName) {
+    public Mono<String> createRequest(Request request) {
         return Mono.fromCallable(() -> {
-                    String path = String.format("/resources/%s/request/req-", resourceName);
+                    String path = String.format("/resources/%s/request/%s", request.getResourceName(), request.getRequestId());
                     return curator.create()
-                            .withMode(CreateMode.PERSISTENT_SEQUENTIAL)
-                            .forPath(path);
+                            .withMode(CreateMode.PERSISTENT)
+                            .forPath(path, request.getRequestId().getBytes()); // ذخیره requestId به عنوان داده نود
                 })
                 .subscribeOn(scheduler);
     }
 }
+
+
 
 

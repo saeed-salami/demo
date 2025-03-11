@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 
 @Component
