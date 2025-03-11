@@ -1,0 +1,14 @@
+zookeeper:
+  connection-string: localhost:2181,localhost:2182,localhost:2183
+
+spring:
+  application:
+    name: zookeeper-coordinator
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+
